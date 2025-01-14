@@ -4,7 +4,7 @@
     <button
       (click)="openShareSheet()"
       [disabled]="isLoading"
-      class="flex items-center justify-start bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white p-3 rounded-full shadow-lg w-12 h-12 transition-all duration-300 hover:w-32 group overflow-hidden disabled:opacity-75 disabled:cursor-wait">
+      class="text-base flex items-center justify-start bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white p-3 rounded-full shadow-lg w-12 h-12 transition-all duration-300 hover:w-32 group overflow-hidden disabled:opacity-75 disabled:cursor-wait">
       <mat-icon class="!w-6 !h-6 absolute left-3" [class.animate-spin]="isLoading">
         {{isLoading ? 'autorenew' : 'share'}}
       </mat-icon>
@@ -20,7 +20,7 @@
       (click)="openAboutDialog()"
       class="flex items-center justify-start bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white p-3 rounded-full shadow-lg w-12 h-12 transition-all duration-300 hover:w-32 group overflow-hidden">
       <mat-icon class="!w-6 !h-6 absolute left-3">info</mat-icon>
-      <span class="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+      <span class="text-base absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
         {{ 'About' | translate }}
       </span>
     </button>

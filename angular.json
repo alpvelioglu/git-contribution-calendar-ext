@@ -28,10 +28,17 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "angular/src/favicon.ico",
-              "angular/src/assets",
+              {
+                "glob": "**/*",
+                "input": "angular/public/i18n",
+                "output": "/i18n"
+              },
               "angular/src/manifest.json"
             ],
-            "styles": ["angular/src/styles.scss"],
+            "styles": [
+              "@angular/material/prebuilt-themes/rose-red.css",
+              "angular/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

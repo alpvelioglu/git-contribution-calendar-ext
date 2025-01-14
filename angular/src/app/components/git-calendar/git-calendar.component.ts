@@ -282,6 +282,7 @@ export class GitCalendarComponent {
         (d) => d3.utcWeek.count(d3.utcYear(d), d) * cellSize + cellSize
       )
       .attr('y', offsetTop / 2 + 4)
+      .attr('font-size', '16px')
       .attr('text-anchor', 'middle')
       .text((d) => {
         var month = d.getMonth();

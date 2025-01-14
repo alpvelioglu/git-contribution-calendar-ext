@@ -13,7 +13,7 @@ export class BitbucketService {
   httpClient = inject(HttpClient);
   configService = inject(ConfigService);
 
-  getContributions(bitbucketApiKey: string, username: string) {
+  getContributionsArchived(bitbucketApiKey: string, username: string) {
     return this.httpClient.post<any>(`${environment.backendUrl}/getcontributions`, {
       baseURL: this.configService.get(Providers.Bitbucket),
       bitbucketAPIKey: bitbucketApiKey,
@@ -21,7 +21,7 @@ export class BitbucketService {
     });
   }
 
-  getUser(bitbucketApiKey: string, username: string) {
+  getUserArchived(bitbucketApiKey: string, username: string) {
     return this.httpClient.post<any>(`${environment.backendUrl}/getuser`, {
       baseURL: this.configService.get(Providers.Bitbucket),
       bitbucketAPIKey: bitbucketApiKey,
@@ -30,12 +30,12 @@ export class BitbucketService {
   }
 
   // If you are running the app in development mode, and don't want to run .NET Backend, you need to use proxy.conf.json to avoid CORS issues
-  getContributionsProxy(bitbucketApiKey: string, username: string) {
+  getContributions(bitbucketApiKey: string, username: string) {
     const start = new Date('2024-01-01');
     const end = new Date('2024-12-31');
     const endpoint = `/rest/awesome-graphs/latest/user/activities/${username}?from=2024-01-01&to=2024-12-31`;
 
-    var url = isDevMode() ? endpoint : this.configService.get(Providers.Bitbucket) + endpoint;
+    var url = this.configService.get(Providers.Bitbucket) + endpoint;
     return this.httpClient
       .get<any>(url,
         { headers: { Authorization: `Bearer ${bitbucketApiKey}` } }
@@ -63,8 +63,8 @@ export class BitbucketService {
       );
   }
 
-  getUserProxy(bitbucketApiKey: string, username: string) {
-    var url = isDevMode() ? `/rest/api/latest/users/${username}?avatarSize=64` : this.configService.get(Providers.Bitbucket) + `/rest/api/latest/users/${username}?avatarSize=64`;
+  getUser(bitbucketApiKey: string, username: string) {
+    var url = this.configService.get(Providers.Bitbucket) + `/rest/api/latest/users/${username}?avatarSize=64`;
     return this.httpClient.get(url, {
       headers: { Authorization: `Bearer ${bitbucketApiKey}` }
     }).pipe(map((result: any) => {
