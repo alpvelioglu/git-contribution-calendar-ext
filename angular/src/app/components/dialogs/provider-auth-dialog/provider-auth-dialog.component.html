@@ -73,5 +73,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">{{'Close' | translate}}</button>
-  <button [disabled]="isEmpty(data.username)" mat-button [mat-dialog-close]="data">{{'Ok' | translate}}</button>
+  <button [disabled]="!isApiKeyValid()" mat-button [mat-dialog-close]="data">{{'Ok' | translate}}</button>
 </mat-dialog-actions>

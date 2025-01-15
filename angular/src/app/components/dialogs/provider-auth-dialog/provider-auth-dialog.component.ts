@@ -47,6 +47,7 @@ export class ProviderAuthDialogComponent {
 
   apiKey = model<string>('');
   baseUrl = model<string>('');
+  isApiKeyValid = signal(false);
 
   username = model<string>('');
   bitbucketTokenPage = computed(() => `${this.baseUrl().endsWith('/') ? this.baseUrl().slice(0, -1) : this.baseUrl() }/plugins/servlet/access-tokens/users/${this.username()}/manage`);
@@ -76,9 +77,11 @@ export class ProviderAuthDialogComponent {
             this.data.apiKey = clipboardText;
             this.data.avatarUrl = data.avatarUrl;
             this.data.displayName = data.displayName;
+            this.isApiKeyValid.set(true);
           },
           error: (error) => {
-            var errText = this.translateService.instant('UserError', {provider: this.providers.GitHub, errMessage: error});
+            this.isApiKeyValid.set(false);
+            var errText = this.translateService.instant('UserError', {provider: this.providers.GitHub, errMessage: error.statusText});
             var closeText = this.translateService.instant('Close');
             this.snackBar.open(errText, closeText, { duration: 3000 });
           }
@@ -94,8 +97,10 @@ export class ProviderAuthDialogComponent {
             this.data.apiKey = clipboardText;
             this.data.avatarUrl = data.avatarUrl;
             this.data.displayName = data.displayName;
+            this.isApiKeyValid.set(true);
           },
           error: (error) => {
+            this.isApiKeyValid.set(false);
             var errText = this.translateService.instant('UserError', {provider: this.providers.Bitbucket, errMessage: error.statusText});
             var closeText = this.translateService.instant('Close');
             this.snackBar.open(errText, closeText, { duration: 3000 });
