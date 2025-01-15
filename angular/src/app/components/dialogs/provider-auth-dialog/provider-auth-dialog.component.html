@@ -17,6 +17,13 @@
         </ol>
       </mat-card-content>
    </mat-card>
+
+   <p>{{'ProvideAPIKey' | translate:{provide: data.provider} }}</p>
+    <mat-form-field class="w-96">
+      <mat-label>{{'APIKey' | translate}}</mat-label>
+      <input matInput [value]="apiKey()" readonly />
+      <button mat-button matSuffix (click)="clipboardPaste()">{{'PasteFrom' | translate}}</button>
+    </mat-form-field>
   }
   @else if (data.provider === providers.Bitbucket) 
   {
@@ -39,39 +46,43 @@
       <input matInput [(ngModel)]="username"/>
     </mat-form-field>
 
-    <mat-card class="info-badge">
-      <mat-card-title>{{'TokenCreationTitle' | translate:{provider: data.provider} }}</mat-card-title>
-      <mat-card-content style="padding: 3px;">
-        <p class="mat-body-1">{{'StepsDescription' | translate:{provider:data.provider} }}</p>
-        <ol>
-          <li>
-            <a 
-              [attr.href]="!isEmpty(username()) && !isEmpty(baseUrl()) ? bitbucketTokenPage() : null"
-              [attr.target]="!isEmpty(username()) && !isEmpty(baseUrl()) ? '_blank' : null"
-              [style.pointer-events]="(isEmpty(username()) || isEmpty(baseUrl())) ? 'none' : 'auto'"
-              style="color: rgb(255, 123, 0); font-weight: bold;"
-              [innerHTML]="'BitbucketStepsOne' | translate:{provider: data.provider} | safeHtml">
-            >
-            </a>.
-          </li>
-          <li>{{'BitbucketStepsTwo' | translate}}</li>
-          <li>{{'StepsFour' | translate}}</li>
-          <li [innerHTML]="'BitbucketStepsThree' | translate | safeHtml"></li>
-          <li>{{'StepsSix' | translate}}</li>
-          <li>{{'StepsSeven' | translate}}</li>
-        </ol>
-      </mat-card-content>
-    </mat-card>
+    @if(!isTestSuccess() && clickCount() !== 0)
+    {
+      <mat-card class="info-badge">
+        <mat-card-title>{{'TokenCreationTitle' | translate:{provider: data.provider} }}</mat-card-title>
+        <mat-card-content style="padding: 3px;">
+          <p class="mat-body-1">{{'StepsDescription' | translate:{provider:data.provider} }}</p>
+          <ol>
+            <li>
+              <a 
+                [attr.href]="!isEmpty(username()) && !isEmpty(baseUrl()) ? bitbucketTokenPage() : null"
+                [attr.target]="!isEmpty(username()) && !isEmpty(baseUrl()) ? '_blank' : null"
+                [style.pointer-events]="(isEmpty(username()) || isEmpty(baseUrl())) ? 'none' : 'auto'"
+                style="color: rgb(255, 123, 0); font-weight: bold;"
+                [innerHTML]="'BitbucketStepsOne' | translate:{provider: data.provider} | safeHtml">
+              >
+              </a>.
+            </li>
+            <li>{{'BitbucketStepsTwo' | translate}}</li>
+            <li>{{'StepsFour' | translate}}</li>
+            <li [innerHTML]="'BitbucketStepsThree' | translate | safeHtml"></li>
+            <li>{{'StepsSix' | translate}}</li>
+            <li>{{'StepsSeven' | translate}}</li>
+          </ol>
+        </mat-card-content>
+      </mat-card>
+
+      <p>{{'ProvideAPIKey' | translate:{provide: data.provider} }}</p>
+      <mat-form-field class="w-96">
+        <mat-label>{{'APIKey' | translate}}</mat-label>
+        <input matInput [value]="apiKey()" readonly />
+        <button [disabled]="isEmpty(username()) && isEmpty(baseUrl())" mat-button matSuffix (click)="clipboardPaste()">{{'PasteFrom' | translate}}</button>
+      </mat-form-field>
+    }
   }
-  
-  <p>{{'ProvideAPIKey' | translate:{provide: data.provider} }}</p>
-  <mat-form-field class="w-96">
-    <mat-label>{{'APIKey' | translate}}</mat-label>
-    <input matInput [value]="apiKey()" readonly />
-    <button [disabled]="isEmpty(username()) && isEmpty(baseUrl()) && data.provider === providers.Bitbucket" mat-button matSuffix (click)="clipboardPaste()">{{'PasteFrom' | translate}}</button>
-  </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">{{'Close' | translate}}</button>
-  <button [disabled]="!isApiKeyValid()" mat-button [mat-dialog-close]="data">{{'Ok' | translate}}</button>
+  <button [hidden]="data.provider === providers.GitHub || isTestSuccess()" mat-button (click)="onTest()">{{'Test' | translate}}</button>
+  <button [disabled]="!isTestSuccess() || !isApiKeyValid()" mat-button [mat-dialog-close]="data">{{'Ok' | translate}}</button>
 </mat-dialog-actions>

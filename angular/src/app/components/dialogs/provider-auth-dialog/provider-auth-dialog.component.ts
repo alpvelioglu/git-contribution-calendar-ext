@@ -48,6 +48,8 @@ export class ProviderAuthDialogComponent {
   apiKey = model<string>('');
   baseUrl = model<string>('');
   isApiKeyValid = signal(false);
+  isTestSuccess = signal(false);
+  clickCount = signal(0);
 
   username = model<string>('');
   bitbucketTokenPage = computed(() => `${this.baseUrl().endsWith('/') ? this.baseUrl().slice(0, -1) : this.baseUrl() }/plugins/servlet/access-tokens/users/${this.username()}/manage`);
@@ -78,10 +80,12 @@ export class ProviderAuthDialogComponent {
             this.data.avatarUrl = data.avatarUrl;
             this.data.displayName = data.displayName;
             this.isApiKeyValid.set(true);
+            this.isTestSuccess.set(true);
           },
           error: (error) => {
             this.isApiKeyValid.set(false);
-            var errText = this.translateService.instant('UserError', {provider: this.providers.GitHub, errMessage: error.statusText});
+            this.isTestSuccess.set(false);
+            var errText = this.translateService.instant('UserError', {provider: this.providers.GitHub, errMessage: error.message});
             var closeText = this.translateService.instant('Close');
             this.snackBar.open(errText, closeText, { duration: 3000 });
           }
@@ -98,9 +102,11 @@ export class ProviderAuthDialogComponent {
             this.data.avatarUrl = data.avatarUrl;
             this.data.displayName = data.displayName;
             this.isApiKeyValid.set(true);
+            this.isTestSuccess.set(true);
           },
           error: (error) => {
             this.isApiKeyValid.set(false);
+            this.isTestSuccess.set(false);
             var errText = this.translateService.instant('UserError', {provider: this.providers.Bitbucket, errMessage: error.statusText});
             var closeText = this.translateService.instant('Close');
             this.snackBar.open(errText, closeText, { duration: 3000 });
@@ -110,6 +116,30 @@ export class ProviderAuthDialogComponent {
     }).catch(err => {
       console.error('Clipboard read failed:', err);
     });
+  }
+
+  onTest(): void {
+    this.clickCount.set(this.clickCount() + 1);
+    if(this.data.provider == Providers.Bitbucket)
+    {
+      this.configService.set(Providers.Bitbucket, this.baseUrl().endsWith('/') ? this.baseUrl().slice(0, -1) : this.baseUrl());
+      this.bitbucketService.getUser(this.apiKey(), this.username()).subscribe({
+        next: (data) => {
+          this.data.username = data.name;
+          this.data.provider = Providers.Bitbucket;
+          this.data.apiKey = this.apiKey();
+          this.data.avatarUrl = data.avatarUrl;
+          this.data.displayName = data.displayName;
+          this.isTestSuccess.set(true);
+          this.isApiKeyValid.set(true);
+          console.log(this.clickCount(), "aaright");
+        },
+        error: (error) => {
+          this.isTestSuccess.set(false);
+          this.isApiKeyValid.set(false);
+        }
+      });
+    }
   }
 
   public isEmpty(value: any): boolean {

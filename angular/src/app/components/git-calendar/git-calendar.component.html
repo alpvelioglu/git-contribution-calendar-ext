@@ -51,7 +51,7 @@
             <img [src]="sharedService.preferedDisplay()?.avatarUrl" alt="GitHub Avatar" class="w-8 h-8 rounded-full">
             <div class="text-sm">
               <div class="font-medium">{{ sharedService.preferedDisplay()?.displayName }}</div>
-              <div class="text-gray-600">{{'GitContrubutionYear' | translate:{year: 2024} }}</div>
+              <div class="text-gray-600">{{'GitContributionYear' | translate:{year: 2024} }}</div>
             </div>
           </div>
           <button (click)="openUserSettingsDialog()" mat-icon-button>
@@ -68,13 +68,13 @@
     <div id="calendar-stats" class="mx-auto flex justify-center items-center mt-6 space-x-16">
       <app-git-stats
         [title]="totalContributions().toString() + ' ' + ('Total' | translate)"
-        [description]="'GitContrubutionYear' | translate:{year: 2024}"
+        [description]="'GitContributionYear' | translate:{year: 2024}"
         [details]="(tempStaticDate() | async)?.startDate + ' - ' + (tempStaticDate() | async)?.endDate"
       ></app-git-stats>
       @if (maxActivities() | async; as maxAct) {
         <app-git-stats
           [title]="maxAct.maxActivity.toString() + ' ' + ('Activities' | translate)"
-          [description]="'GitMaxContrubutionDay' | translate"
+          [description]="'GitMaxContributionDay' | translate"
           [details]="maxAct.dayOfMaxActivity || ''"
         ></app-git-stats>
       }
