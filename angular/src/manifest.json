@@ -3,7 +3,7 @@
   "name": "Git Contributions Calendar",
   "short_name": "GCC",
   "version": "1.0.0",
-  "description": "A modern web application that visualizes your git contributions across multiple platforms (GitHub, Bitbucket) in a unified calendar view.",
+  "description": "A web application that visualizes your git contributions across multiple providers (GitHub, Bitbucket) in a unified calendar view.",
   "permissions": ["tabs"],
   "action": {
     "default_title": "Git Contributions Calendar"
