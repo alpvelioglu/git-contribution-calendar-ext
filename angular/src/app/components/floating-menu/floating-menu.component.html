@@ -3,13 +3,13 @@
   <div class="relative flex justify-start">
     <button
       (click)="openShareSheet()"
-      [disabled]="isLoading"
+      [disabled]="isLoading()"
       class="text-base flex items-center justify-start bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white p-3 rounded-full shadow-lg w-12 h-12 transition-all duration-300 hover:w-32 group overflow-hidden disabled:opacity-75 disabled:cursor-wait">
-      <mat-icon class="!w-6 !h-6 absolute left-3" [class.animate-spin]="isLoading">
-        {{isLoading ? 'autorenew' : 'share'}}
+      <mat-icon class="!w-6 !h-6 absolute left-3" [class.animate-spin]="isLoading()">
+        {{isLoading() ? 'autorenew' : 'share'}}
       </mat-icon>
       <span class="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-        {{isLoading ? ('Loading' | translate) : 'Share' | translate}}
+        {{isLoading() ? ('Loading' | translate) : 'Share' | translate}}
       </span>
     </button>
   </div>

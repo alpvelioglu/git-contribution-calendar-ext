@@ -83,6 +83,6 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">{{'Close' | translate}}</button>
-  <button [hidden]="data.provider === providers.GitHub || isTestSuccess()" mat-button (click)="onTest()">{{'Test' | translate}}</button>
+  <button [hidden]="data.provider === providers.GitHub || isTestSuccess() || clickCount() > 0" mat-button (click)="onTest()">{{'Test' | translate}}</button>
   <button [disabled]="!isTestSuccess() || !isApiKeyValid()" mat-button [mat-dialog-close]="data">{{'Ok' | translate}}</button>
 </mat-dialog-actions>

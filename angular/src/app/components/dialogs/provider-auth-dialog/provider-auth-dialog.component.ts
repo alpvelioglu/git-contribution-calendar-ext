@@ -119,7 +119,6 @@ export class ProviderAuthDialogComponent {
   }
 
   onTest(): void {
-    this.clickCount.set(this.clickCount() + 1);
     if(this.data.provider == Providers.Bitbucket)
     {
       this.configService.set(Providers.Bitbucket, this.baseUrl().endsWith('/') ? this.baseUrl().slice(0, -1) : this.baseUrl());
@@ -132,11 +131,13 @@ export class ProviderAuthDialogComponent {
           this.data.displayName = data.displayName;
           this.isTestSuccess.set(true);
           this.isApiKeyValid.set(true);
+          this.clickCount.set(this.clickCount() + 1);
           console.log(this.clickCount(), "aaright");
         },
         error: (error) => {
           this.isTestSuccess.set(false);
           this.isApiKeyValid.set(false);
+          this.clickCount.set(this.clickCount() + 1);
         }
       });
     }

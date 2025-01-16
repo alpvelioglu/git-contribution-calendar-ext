@@ -33,6 +33,16 @@
                 "input": "angular/public/i18n",
                 "output": "/i18n"
               },
+              {
+                "glob": "**/*",
+                "input": "angular/public/icons",
+                "output": "/icons"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "angular/public",
+                "output": "/"
+              },
               "angular/src/manifest.json"
             ],
             "styles": [

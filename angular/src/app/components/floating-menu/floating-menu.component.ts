@@ -1,4 +1,4 @@
-import { Component, computed, inject, SecurityContext } from '@angular/core';
+import { Component, computed, inject, SecurityContext, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { AboutDialogComponent } from '../dialogs/about-dialog/about-dialog.component';
@@ -32,7 +32,7 @@ export class FloatingMenuComponent {
   username = computed(() => this.sharedService.preferedDisplay()?.displayName);
   avatarUrl = computed(() => this.sharedService.preferedDisplay()?.avatarUrl);
 
-  isLoading = false;
+  isLoading = signal(false);
 
   languages = [
     { code: 'gb', name: 'English'},
@@ -47,12 +47,12 @@ export class FloatingMenuComponent {
   openShareSheet() {
     if(this.sharedService.bitbucketUser() || this.sharedService.gitHubUser()) 
     {
-      this.isLoading = true;
+      this.isLoading.set(true);
       this.snapshotCalendar().then(imageData => {
         this.bottomSheet.open(ShareBottomSheetComponent, {
           data: { imageData }
         });
-        this.isLoading = false;
+        this.isLoading.set(false);
       });
     } 
     else 
