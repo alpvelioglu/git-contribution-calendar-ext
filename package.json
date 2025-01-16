@@ -1,8 +1,8 @@
 {
-  "name": "angular-chrome-extension",
+  "name": "git-contribution-calendar",
   "version": "1.0.0",
-  "author": "Lars Kniep",
-  "description": "Angular Chrome Extension Template",
+  "author": "Alp Eren Velioğlu",
+  "description": "Git Contribution Calendar",
   "scripts": {
     "ng": "ng",
     "start": "npm run watch",
