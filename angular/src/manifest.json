@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Git Contributions Calendar",
+  "name": "Git Contribution Calendar",
   "short_name": "GCC",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A web application that visualizes your git contributions across multiple providers (GitHub, Bitbucket) in a unified calendar view.",
   "permissions": ["tabs"],
   "action": {
-    "default_title": "Git Contributions Calendar"
+    "default_title": "Git Contribution Calendar"
   },
   "icons": {
     "16": "icons/icon16.png",
