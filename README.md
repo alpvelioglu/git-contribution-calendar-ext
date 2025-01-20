@@ -109,6 +109,7 @@ To get a local copy up and running, follow these steps:
 - [ ] Custom Date Range Selection
 - [ ] Dark Theme
 - [ ] Fixing color schema with dynamic colors
+- [ ] Better UI
 
 See the [open issues](https://github.com/alpvelioglu/git-contribution-calendar-ext/issues) for a full list of proposed features and known issues.
 
