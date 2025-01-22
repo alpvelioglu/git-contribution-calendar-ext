@@ -27,13 +27,12 @@ export class ShareBottomSheetComponent {
 
   shareOnLinkedIn() {
     const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(document.title);
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
     //this.bottomSheetRef.dismiss();
   }
 
   shareOnTwitter() {
-    const url = encodeURIComponent(window.location.href);
+    const url = encodeURIComponent('https://chromewebstore.google.com/detail/git-contribution-calendar/ahconamdimiklncoffoeiaeahhhmbdkd?authuser=0&hl=en');
     var shareOnTwitter = this.translatedService.instant('ShareOnTwitter');
     const text = encodeURIComponent(shareOnTwitter);
     this.data.imageData.toBlob((blob: Blob) => {
